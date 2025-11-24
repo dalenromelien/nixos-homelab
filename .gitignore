@@ -1,1 +1,16 @@
-/secrets
+# Secrets - NEVER commit these
+secrets/
+*.key
+*.pem
+*-pass.txt
+*password*
+
+# Build outputs
+result
+result-*
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*~
