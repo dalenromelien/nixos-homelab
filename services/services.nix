@@ -15,33 +15,22 @@
   networking.firewall.allowedTCPPorts = [
     80
     443
+    9000
   ];
   
-  services.step-ca = {
+  services.nginx = {
     enable = true;
-    openFirewall = true;
-    port = 9000;
-    address = "0.0.0.0";
-    
-    settings = {
-      dnsNames = ["nixos.dalen-homelab.com"];
-      root = "/etc/smallstep/certs/root_ca.crt";
-      crt = "/etc/smallstep/certs/intermediate_ca.crt";
-      key = "/etc/smallstep/secrets/intermediate_ca_key";
-    };
-    intermediatePasswordFile = "/etc/nixos/secrets/ca-password.txt";
   };
-  
+
+
   security.acme = {
-    acceptTerms = true;   
-    defaults.email = "dalenm.romelien@gmail.com";
-    certs."dalen-homelab.com" = {
-      server = "https://nixos.dalen-homelab.com/acme/acme-directory";
+    acceptTerms = true;
+    defaults = {
+      server = "https://ca.dalen-homelab.com:9000/acme/admin/directory";
       email = "dalenm.romelien@gmail.com";
-      listenHTTP = "127.0.0.1:0";
     };
   };
-  
+
 #  services.keycloak = {
 #    enable = true;
 #    database = {
@@ -56,12 +45,7 @@
 #      
 #    };
 #  };
-  
-  services.nginx = {
-    enable = true;
-    virtualHosts."nixos.dalen-homelab.com".forceSSL = true;  # This enforces SSL across all services
-    virtualHosts."nixos.dalen-homelab.com".enableACME = true; # Enable ACME for all services
-  };
+
 #
 # 
 #  services.netbird = {

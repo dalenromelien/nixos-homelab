@@ -13,6 +13,7 @@
       modules = [
         ./configuration.nix
 	./services/services.nix
+	./services/step-ca.nix
       ];
     };
   };
