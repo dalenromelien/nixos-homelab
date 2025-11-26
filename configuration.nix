@@ -8,8 +8,39 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      inputs.sops-nix.nixosModules.sops
     ];
 
+  sops.defaultSopsFile = ./secrets/secrets.yaml;
+  sops.defaultSopsFormat = "yaml";
+  sops.age.keyFile = "/home/dalen/.config/sops/age/keys.txt";
+  sops.secrets = {
+  rootCA = {
+    path = "/etc/nixos/secrets/root_ca.crt";
+    owner = "step-ca";
+    group = "step-ca";
+    mode = "0400";
+  };
+  intermediateCA = {
+    path = "/etc/nixos/secrets/intermediate_ca.crt";
+    owner = "step-ca";
+    group = "step-ca";
+    mode = "0400";
+  };
+  intermediateKey = {
+    path = "/etc/nixos/secrets/intermediate_ca.key";
+    owner = "step-ca";
+    group = "step-ca";
+    mode = "0400";
+  };
+  password = {
+    path = "/etc/nixos/secrets/ca-password.txt";
+    owner = "step-ca";
+    group = "step-ca";
+    mode = "0400";
+  };
+};
+  
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   # boot.loader.grub.efiSupport = true;
@@ -75,6 +106,7 @@
        neovim
        inputs.helix.packages."${pkgs.system}".helix
        step-cli
+       sops
      ];
    };
 
@@ -104,7 +136,7 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  services.openssh.settings.PasswordAuthentication = false;
+  services.openssh.settings.PasswordAuthentication = true;
   services.openssh.settings.PermitRootLogin = "no";
 
   # Open ports in the firewall.

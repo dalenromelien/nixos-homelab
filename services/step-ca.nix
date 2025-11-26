@@ -1,6 +1,7 @@
 {config, pkgs, ...}:
 {
-
+  
+  
   services.step-ca = {
     enable = true;
     openFirewall = true;
@@ -8,9 +9,9 @@
     port = 9000;
 
     settings = {
-	    root = "/var/lib/step-ca/certs/root_ca.crt";
-	    crt = "/var/lib/step-ca/certs/intermediate_ca.crt";
-	    key = "/var/lib/step-ca/secrets/intermediate_ca_key";
+	    root = "/run/secrets/step-ca/root_ca.crt";
+	    crt = "/run/secrets/step-ca/intermediate_ca.crt";
+	    key = "/run/secrets/step-ca/intermediate_ca_key";
 	    address = ":9000";
 	    dnsNames = ["ca.dalen-homelab.com"];
 	    logger = {format = "text";};
@@ -42,6 +43,6 @@
       };
     };
 
-    intermediatePasswordFile = "/etc/nixos/secrets/ca-password.txt";
-  };
+    intermediatePasswordFile = "/run/secrets/step-ca/ca-password.txt";
+ };
 }
