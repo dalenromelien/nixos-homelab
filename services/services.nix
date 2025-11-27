@@ -23,7 +23,7 @@
   };
 
   # Create webroot for ACME http-01 challenges
-  systemd.tmpfiles.rules = lib.mkForce (lib.concatLists [
+  systemd.tmpfiles.rules = pkgs.lib.mkForce (pkgs.lib.concatLists [
     [
       "d /var/www/acme-challenges 0755 root root -"
       "d /var/www/acme-challenges/nextcloud 0755 root root -"
