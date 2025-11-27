@@ -22,12 +22,26 @@
     enable = true;
   };
 
+  # Create webroot for ACME http-01 challenges
+  systemd.tmpfiles.rules = lib.mkForce (lib.concatLists [
+    [
+      "d /var/www/acme-challenges 0755 root root -"
+      "d /var/www/acme-challenges/nextcloud 0755 root root -"
+    ]
+  ]);
 
   security.acme = {
     acceptTerms = true;
     defaults = {
       server = "https://ca.dalen-homelab.com:9000/acme/admin/directory";
       email = "dalenm.romelien@gmail.com";
+    };
+
+    # ACME cert for Nextcloud using http-01 (webroot)
+    certs."nextcloud" = {
+      domains = [ "nextcloud.dalen-homelab.com" ];
+      webroot = "/var/www/acme-challenges/nextcloud";
+      # keyType = "RSA"; # optional
     };
   };
 

@@ -48,6 +48,9 @@
 	# Ensure persistent directories for step-ca runtime data exist with correct ownership.
 	systemd.tmpfiles.rules = lib.mkForce (lib.concatLists [
 		[
+			# create a symlink in the system CA directory that points at the sops-managed root cert
+			"L /etc/ssl/certs/step-ca-root.pem - - - - /run/secrets/step-ca/root-ca-crt"
+			# ensure the runtime DB and certs directories exist
 			"d /var/lib/step-ca 0750 step-ca step-ca -"
 			"d /var/lib/step-ca/db 0750 step-ca step-ca -"
 			"d /var/lib/step-ca/secrets 0700 step-ca step-ca -"
@@ -57,7 +60,7 @@
 
 	# Ensure the generated step-ca service waits for runtime secrets and tmpfiles
 	systemd.services.step-ca = {
-		serviceConfig = {
+		unitConfig = {
 			Wants = [ "run-secrets.d.mount" "systemd-tmpfiles-setup.service" ];
 			After = [ "run-secrets.d.mount" "systemd-tmpfiles-setup.service" ];
 		};
