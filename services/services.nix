@@ -38,10 +38,8 @@
     };
 
     # ACME cert for Nextcloud using http-01 (webroot)
-    certs."nextcloud" = {
-      domains = [ "nextcloud.dalen-homelab.com" ];
+    certs."nextcloud.dalen-homelab.com" = {
       webroot = "/var/www/acme-challenges/nextcloud";
-      # keyType = "RSA"; # optional
     };
   };
 
