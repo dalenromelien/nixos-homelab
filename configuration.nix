@@ -18,25 +18,26 @@
   # keys are nested under `step-ca:` in your secrets.yaml — reference them with
   # a slash-separated name so sops-nix finds the nested values.
   "step-ca/root-ca-crt" = {
-    path = "/run/secrets/step-ca/root_ca.crt";
+    # match the filename sops actually creates (hyphen-separated)
+    path = "/run/secrets/step-ca/root-ca-crt";
     owner = "step-ca";
     group = "step-ca";
     mode = "0400";
   };
   "step-ca/intermediate-ca-crt" = {
-    path = "/run/secrets/step-ca/intermediate_ca.crt";
+    path = "/run/secrets/step-ca/intermediate-ca-crt";
     owner = "step-ca";
     group = "step-ca";
     mode = "0400";
   };
   "step-ca/intermediate-ca-key" = {
-    path = "/run/secrets/step-ca/intermediate_ca_key";
+    path = "/run/secrets/step-ca/intermediate-ca-key";
     owner = "step-ca";
     group = "step-ca";
     mode = "0400";
   };
   "step-ca/password" = {
-    path = "/run/secrets/step-ca/intermediate_password";
+    path = "/run/secrets/step-ca/password";
     owner = "step-ca";
     group = "step-ca";
     mode = "0400";

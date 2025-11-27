@@ -5,8 +5,6 @@
 		openFirewall = true;
 		address = "0.0.0.0";
 		port = 9000;
-		user = "step-ca";
-		group = "step-ca";
 
 		settings = {
 			root = config.sops.secrets."step-ca/root-ca-crt".path;
