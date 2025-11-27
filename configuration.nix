@@ -15,26 +15,29 @@
   sops.defaultSopsFormat = "yaml";
   sops.age.keyFile = "/home/dalen/.config/sops/age/keys.txt";
   sops.secrets = {
-  rootCA = {
+  "root-ca-crt" = {
     path = "/etc/nixos/secrets/root_ca.crt";
     owner = "step-ca";
     group = "step-ca";
     mode = "0400";
   };
-  intermediateCA = {
+  "intermediate-ca-crt" = {
     path = "/etc/nixos/secrets/intermediate_ca.crt";
     owner = "step-ca";
     group = "step-ca";
     mode = "0400";
   };
-  intermediateKey = {
-    path = "/etc/nixos/secrets/intermediate_ca.key";
+  "intermediate-ca-key" = {
+    # use underscore in filename to match step-ca runtime paths
+    path = "/etc/nixos/secrets/intermediate_ca_key";
     owner = "step-ca";
     group = "step-ca";
     mode = "0400";
   };
   password = {
-    path = "/etc/nixos/secrets/ca-password.txt";
+    # we'll provide the password using the same key name from secrets.yaml
+    # and write it to a path that the service can consume
+    path = "/etc/nixos/secrets/intermediate_password";
     owner = "step-ca";
     group = "step-ca";
     mode = "0400";

@@ -43,6 +43,7 @@
       };
     };
 
-    intermediatePasswordFile = "/run/secrets/step-ca/ca-password.txt";
+	# systemd unit expects the password file at `${CREDENTIALS_DIRECTORY}/intermediate_password`
+	intermediatePasswordFile = "/run/secrets/step-ca/intermediate_password";
  };
 }
