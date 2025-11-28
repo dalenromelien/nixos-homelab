@@ -3,7 +3,7 @@
 {
   services.nextcloud = {
     enable = true;
-    hostName = "nextcloud.dalen-homelab.com";
+    hostName = "nextcloud.dalen-homelab.duckdns.org";
     database.createLocally = true;
     config = {
       dbtype = "pgsql";
@@ -22,27 +22,20 @@
     enable = true;
   };
 
-  # Create webroot for ACME http-01 challenges
-  systemd.tmpfiles.rules = pkgs.lib.mkForce (pkgs.lib.concatLists [
-    [
-      "d /var/www/acme-challenges 0755 acme acme -"
-      "d /var/www/acme-challenges/nextcloud 0755 acme acme -"
-      "d /var/www/acme-challenges/nextcloud/.well-known 0755 acme acme -"
-      "d /var/www/acme-challenges/nextcloud/.well-known/acme-challenge 0755 acme acme -"
-    ]
-  ]);
-
   security.acme = {
     acceptTerms = true;
-    defaults = {
-      server = "https://ca.dalen-homelab.com:9000/acme/admin/directory";
-      email = "dalenm.romelien@gmail.com";
-    };
+    defaults.email = "dalenm.romelien@gmail.com";
+  };
 
-    # ACME cert for Nextcloud using http-01 (webroot)
-    certs."nextcloud.dalen-homelab.com" = {
-      webroot = "/var/www/acme-challenges/nextcloud";
-    };
+  # Wildcard certificate for DuckDNS
+  security.acme.certs."dalen-homelab.duckdns.org" = {
+    domain = "*.dalen-homelab.duckdns.org";
+    dnsProvider = "duckdns";
+    credentialsFile = "/etc/nixos/secrets/duckdns.ini";
+    dnsPropagationCheck = true;
+
+    # Useful if using nginx, caddy, or specific service groups
+    group = "nginx";
   };
 
 #  services.keycloak = {

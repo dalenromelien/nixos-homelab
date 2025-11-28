@@ -8,48 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      inputs.sops-nix.nixosModules.sops
     ];
-
-  sops.defaultSopsFile = ./secrets.yaml;
-  sops.defaultSopsFormat = "yaml";
-  sops.age.keyFile = "/home/dalen/.config/sops/age/keys.txt";
-  sops.secrets = {
-  # keys are nested under `step-ca:` in your secrets.yaml — reference them with
-  # a slash-separated name so sops-nix finds the nested values.
-  "step-ca/root-ca-crt" = {
-    # match the filename sops actually creates (hyphen-separated)
-    path = "/run/secrets/step-ca/root-ca-crt";
-    owner = "step-ca";
-    group = "step-ca";
-    mode = "0400";
-  };
-  "step-ca/intermediate-ca-crt" = {
-    path = "/run/secrets/step-ca/intermediate-ca-crt";
-    owner = "step-ca";
-    group = "step-ca";
-    mode = "0400";
-  };
-  "step-ca/intermediate-ca-key" = {
-    path = "/run/secrets/step-ca/intermediate-ca-key";
-    owner = "step-ca";
-    group = "step-ca";
-    mode = "0400";
-  };
-  "step-ca/password" = {
-    path = "/run/secrets/step-ca/password";
-    owner = "step-ca";
-    group = "step-ca";
-    mode = "0400";
-  };
-};
-
-  # Ensure the system user exists so sops can chown secrets at activation time.
-  users.users.step-ca = {
-    isSystemUser = true;
-    description = "smallstep step-ca user";
-    createHome = false;
-  };
   
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
