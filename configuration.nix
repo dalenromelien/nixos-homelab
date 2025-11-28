@@ -136,12 +136,6 @@
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  security.pki = {
-    # Trust the local step-ca root certificate (deployed via sops-nix).
-    certificateFiles = [
-      config.sops.secrets."step-ca/root-ca-crt".path
-    ];
-  };
 
   system.stateVersion = "25.05"; # Did you read the comment?
 

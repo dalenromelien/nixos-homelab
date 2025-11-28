@@ -16,6 +16,7 @@
     80
     443
     9000
+    8080
   ];
   
   services.nginx = {
@@ -31,27 +32,43 @@
   security.acme.certs."dalen-homelab.duckdns.org" = {
     domain = "*.dalen-homelab.duckdns.org";
     dnsProvider = "duckdns";
-    credentialsFile = "/etc/nixos/secrets/duckdns.ini";
+    credentialFiles = {
+      DUCKDNS_TOKEN_FILE = "/etc/nixos/secrets/duckdns.ini";
+    };
     dnsPropagationCheck = true;
 
     # Useful if using nginx, caddy, or specific service groups
     group = "nginx";
   };
 
-#  services.keycloak = {
-#    enable = true;
-#    database = {
-#      type = "postgresql";
-#      createLocally = true;
-#      username = "keycloak";
-#      passwordFile = "/etc/nixos/secrets/keycloak-adminpass.txt";
-#    };
-#    settings = {
-#      hostname = "auth.dalen-homelab.com";
-#      http-relative-path = "/cloak";
-#      
-#    };
-#  };
+  services.keycloak = {
+    enable = true;
+    settings = {
+      hostname = "auth.dalen-homelab.duckdns.org";
+      hostname-backchannel-dynamic = true;
+      proxy-headers = "xforwarded";
+    };
+    initialAdminPassword = "password"; # change on first login
+    sslCertificate = "/var/lib/acme/dalen-homelab.duckdns.org/fullchain.pem";
+    sslCertificateKey = "/var/lib/acme/dalen-homelab.duckdns.org/key.pem";
+    database.passwordFile = "/etc/nixos/secrets/keycloak-db-pass.txt";
+    
+  };
+
+ # services.nginx.virtualHosts."auth.dalen-homelab.duckdns.org" = {
+ #   enableACME = false; # keycloak using wildcard cert instead
+ #   forceSSL = true;
+
+ #   sslCertificate = "/var/lib/acme/dalen-homelab.duckdns.org/fullchain.pem";
+ #   sslCertificateKey = "/var/lib/acme/dalen-homelab.duckdns.org/key.pem";
+
+ #   locations."/" = {
+ #     proxyPass = "http://127.0.0.1:8080/cloak/";
+ #     proxyWebsockets = true;
+ #   };
+ # };
+
+
 
 #
 # 
