@@ -1,0 +1,1 @@
+# simple Jellyfin configuration

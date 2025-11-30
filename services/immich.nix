@@ -1,0 +1,1 @@
+# Simple immich configuration
