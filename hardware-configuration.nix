@@ -33,6 +33,12 @@
   networking.useDHCP = lib.mkDefault true;
   networking.interfaces.ens18.useDHCP = lib.mkDefault true;
   networking.nameservers = ["192.168.10.1"];
+  networking.bridges.br-wan = {
+    interfaces = ["ens-18"];
+  };
+  networking.bridges.br-lan = {
+    interfaces = [ ];
+  };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

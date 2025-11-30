@@ -89,6 +89,8 @@
      wget
      git
      step-cli
+     libvirt
+     qemu
    ];
 
    environment.variables.EDITOR = "neovim";
