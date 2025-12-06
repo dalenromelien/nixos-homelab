@@ -1,10 +1,5 @@
-{config, pkgs, lib, nixvirt, ...}:
+{config, pkgs, lib, nixvirt, images, ...}:
 
 let
-
-
-
-in
-{
-  
-}
+  openwrtImg = images.openWrtImageBuild;
+in "${openwrtImg}"
