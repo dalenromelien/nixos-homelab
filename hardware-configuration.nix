@@ -32,13 +32,7 @@
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   networking.interfaces.ens18.useDHCP = lib.mkDefault true;
-  networking.nameservers = ["192.168.10.1"];
-  networking.bridges.br-wan = {
-    interfaces = ["ens-18"];
-  };
-  networking.bridges.br-lan = {
-    interfaces = [ ];
-  };
+  networking.nameservers = ["8.8.8.8" "1.1.1.1" "192.168.10.1"];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

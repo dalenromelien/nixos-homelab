@@ -1,16 +1,37 @@
 {
   "nodes": {
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "openwrt-imagebuilder",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1733312601,
+        "narHash": "sha256-4pDvzqnegAfRkPwO3wmwBhVi/Sye1mzps0zHWYnP88c=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "205b12d8b7cd4802fbcb8e8ef6a0f1408781a4f9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
     "helix": {
       "inputs": {
         "nixpkgs": "nixpkgs",
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1764012229,
-        "narHash": "sha256-wmudMdTM13dB40cABYJx6wH+4vMlbSbRGSOOSqT+qRg=",
+        "lastModified": 1764772477,
+        "narHash": "sha256-aPZcjv3L/q8qL9VfUMfVXCdKU4iRVaPNCnl/IVBHmfk=",
         "owner": "helix-editor",
         "repo": "helix",
-        "rev": "8883163fad0830bfe5055a04d343da902bcae77a",
+        "rev": "f92275abcaed8727456ad34b1216d40d38f1c929",
         "type": "github"
       },
       "original": {
@@ -38,11 +59,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1763948260,
-        "narHash": "sha256-dY9qLD0H0zOUgU3vWacPY6Qc421BeQAfm8kBuBtPVE0=",
+        "lastModified": 1764836381,
+        "narHash": "sha256-8jemYbbW9EBttQKHep7Rj8kzXaxsrk/lACdXA2DN5Xk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "1c8ba8d3f7634acac4a2094eef7c32ad9106532c",
+        "rev": "ff06bd3398fb1bea6c937039ece7e7c8aa396ebf",
         "type": "github"
       },
       "original": {
@@ -52,10 +73,53 @@
         "type": "github"
       }
     },
+    "nixvirt": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1748140003,
+        "narHash": "sha256-DNBZmuk1YRM2PmwbHzVdXumRjCUzQkMarg4iI/37rOQ=",
+        "rev": "5dfe108fd859b122f9a96981cb6bc12297653d6c",
+        "revCount": 407,
+        "type": "tarball",
+        "url": "https://api.flakehub.com/f/pinned/AshleyYakeley/NixVirt/0.6.0/0197059a-e45f-7446-86b5-411ccc894ab0/source.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://flakehub.com/f/AshleyYakeley/NixVirt/%2A.tar.gz"
+      }
+    },
+    "openwrt-imagebuilder": {
+      "inputs": {
+        "flake-parts": "flake-parts",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1765010341,
+        "narHash": "sha256-8NhXzEZSIWN6kqcsjQZvg+fQ1joxIQ76T4+c61MWg2Q=",
+        "owner": "astro",
+        "repo": "nix-openwrt-imagebuilder",
+        "rev": "16f336105cbb6b4991f50738cd4cf0145b97a068",
+        "type": "github"
+      },
+      "original": {
+        "owner": "astro",
+        "repo": "nix-openwrt-imagebuilder",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "helix": "helix",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "nixvirt": "nixvirt",
+        "openwrt-imagebuilder": "openwrt-imagebuilder"
       }
     },
     "rust-overlay": {
@@ -76,6 +140,21 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1680978846,
+        "narHash": "sha256-Gtqg8b/v49BFDpDetjclCYXm8mAnTrUzR0JnE2nv5aw=",
+        "owner": "nix-systems",
+        "repo": "x86_64-linux",
+        "rev": "2ecfcac5e15790ba6ce360ceccddb15ad16d08a8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "x86_64-linux",
         "type": "github"
       }
     }
