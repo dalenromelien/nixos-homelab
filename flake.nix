@@ -19,8 +19,10 @@
 
   outputs = { self, nixpkgs, ... }@inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs;};
-      lib.images = "./network/images";
+      specialArgs = {
+        inherit inputs;
+        images = nixpkgs.lib.callPackage ./network/images.nix {inherit nixpkgs;};
+      };
       modules = [
         ./configuration.nix
         ./network/openwrt.nix
