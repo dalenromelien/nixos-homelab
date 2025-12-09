@@ -1,7 +1,6 @@
-{pkgs, inputs, ...}:
+{pkgs, ...}:
 
-let
-  config = {
+  inputs.openwrt-imagebuilder.lib.build {
     inherit pkgs;
     release = "24.10.4";
     target = "x86";
@@ -36,16 +35,12 @@ let
     disabledServices = [];
 
     files = pkgs.runCommand "image-files" {} ''
-          mkdir -p $out/etc/uci-defaults
-          cat > $out/etc/uci-defaults/99-custom <<EOF
-          uci -q batch << EOI
-          set system.@system[0].hostname='nixrouter'
-          commit
-          EOI
-          EOF
-        '';
-  };
-
-  openwrtImg = inputs.openwrt-imagebuilder.lib.build config;
-  
-in "${openwrtImg}"
+      mkdir -p $out/etc/uci-defaults
+      cat > $out/etc/uci-defaults/99-custom <<EOF
+      uci -q batch << EOI
+      set system.@system[0].hostname='nixrouter'
+      commit
+      EOI
+      EOF
+     '';
+  }

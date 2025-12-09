@@ -41,7 +41,9 @@
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 
-
+  nix.settings = {
+    experimental-features = ["nix-command" "flakes"];
+  };
   
 
   # Configure keymap in X11
@@ -73,7 +75,7 @@
        tree
        git
        neovim
-       inputs.helix.packages."${pkgs.system}".helix
+       helix
        step-cli
        sops
      ];
@@ -83,7 +85,7 @@
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
-   nix.settings.experimental-features = ["nix-command" "flakes"];
+
    environment.systemPackages = with pkgs; [
      neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
      wget

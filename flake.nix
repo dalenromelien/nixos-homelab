@@ -3,9 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    
-    helix.url = "github:helix-editor/helix/master";
-    
+        
     openwrt-imagebuilder = {
       url = "github:astro/nix-openwrt-imagebuilder";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -17,12 +15,18 @@
     };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs: {
+  outputs = { self, nixpkgs, openwrt-imagebuilder, nixvirt, ... }@inputs: {
+    
+    packages.x86_64-linux.my-router = import ./network/openwrt.nix {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      inherit openwrt-imagebuilder;
+    };
+    
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
       modules = [
         ./configuration.nix
-        ./network/openwrt.nix
+        ./network/nixvirt.nix
       ];
     };
   };
