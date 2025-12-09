@@ -20,7 +20,9 @@
     packages.x86_64-linux.my-router = import ./network/openwrt.nix {
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       inherit inputs;
-      inherit openwrt-imagebuilder;
+      openwrt-imagebuilder = openwrt-imagebuilder.override {
+        buildRoot = "/var/tmp/openwrt-build";
+      };
     };
     
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
