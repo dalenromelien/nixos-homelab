@@ -43,6 +43,7 @@
 
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
+    extra-sandbox-paths = ["var/tmp/openwrt-build"];
    # sandbox = "relaxed";
    # trusted-users = ["root" "dalen"];
   };
