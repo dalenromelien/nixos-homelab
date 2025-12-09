@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{pkgs, inputs, ...}:
 
   inputs.openwrt-imagebuilder.lib.build {
     inherit pkgs;

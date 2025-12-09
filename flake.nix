@@ -19,6 +19,7 @@
     
     packages.x86_64-linux.my-router = import ./network/openwrt.nix {
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      inherit inputs;
       inherit openwrt-imagebuilder;
     };
     

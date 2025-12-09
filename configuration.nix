@@ -43,6 +43,8 @@
 
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
+   # sandbox = "relaxed";
+   # trusted-users = ["root" "dalen"];
   };
   
 
