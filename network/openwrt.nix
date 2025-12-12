@@ -1,6 +1,6 @@
-{pkgs, inputs, ...}:
+{pkgs, openwrt-imagebuilder, ...}:
 
-  inputs.openwrt-imagebuilder.lib.build {
+  openwrt-imagebuilder.lib.build {
     inherit pkgs;
     release = "24.10.4";
     target = "x86";
